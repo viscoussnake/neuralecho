@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Neural Echo Test</title>
+</head>
+<body>
+    <h1>Neural Echo Path Test</h1>
+    <p>Testing if we can access files in the src directory:</p>
+    
+    <div id="css-test">This should be styled if CSS is loading</div>
+    
+    <script>
+        // Try to load a JavaScript file
+        fetch('src/js/database.js')
+            .then(response => {
+                if(response.ok) {
+                    document.body.innerHTML += '<p style="color:green">✓ Successfully accessed database.js</p>';
+                } else {
+                    document.body.innerHTML += '<p style="color:red">✗ Failed to access database.js</p>';
+                }
+            })
+            .catch(error => {
+                document.body.innerHTML += '<p style="color:red">✗ Error accessing database.js: ' + error + '</p>';
+            });
+            
+        // Try to load CSS
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = 'src/css/main.css';
+        link.onload = () => document.body.innerHTML += '<p style="color:green">✓ Successfully loaded CSS</p>';
+        link.onerror = () => document.body.innerHTML += '<p style="color:red">✗ Failed to load CSS</p>';
+        document.head.appendChild(link);
+    </script>
+    
+    <style>
+        #css-test {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px 0;
+        }
+    </style>
+</body>
+</html> 

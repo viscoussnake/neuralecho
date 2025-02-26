@@ -5,7 +5,9 @@
   "description": "An interactive narrative experience exploring the boundaries between neuroscience, artificial intelligence, and human consciousness",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "keywords": [
     "interactive-fiction",
@@ -16,8 +18,10 @@
   ],
   "author": "Claude, with conceptual guidance from Galal Elsayed, MD",
   "license": "MIT",
-  "dependencies": {},
   "engines": {
     "node": ">=12.0.0"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
   }
 }

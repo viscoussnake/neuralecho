@@ -6,6 +6,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
+    "build": "mkdir -p dist && cp -r *.html *.js *.css assets dist/",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },

@@ -28,47 +28,21 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v3
         
-      - name: Create site files
-        run: |
-          mkdir -p ./_site
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
           
-          # Create index.html
-          cat > ./_site/index.html << 'EOL'
-          <!DOCTYPE html>
-          <html lang="en">
-          <head>
-              <meta charset="UTF-8">
-              <meta name="viewport" content="width=device-width, initial-scale=1.0">
-              <title>NeuralEcho</title>
-          </head>
-          <body>
-              <h1>Welcome to NeuralEcho</h1>
-              <p>An interactive narrative experience exploring the boundaries between neuroscience, artificial intelligence, and human consciousness.</p>
-          </body>
-          </html>
-          EOL
-          
-          # Create 404.html
-          cat > ./_site/404.html << 'EOL'
-          <!DOCTYPE html>
-          <html lang="en">
-          <head>
-              <meta charset="UTF-8">
-              <meta name="viewport" content="width=device-width, initial-scale=1.0">
-              <title>Page Not Found - NeuralEcho</title>
-          </head>
-          <body>
-              <h1>404 - Page Not Found</h1>
-              <p>The page you are looking for does not exist.</p>
-              <a href="/">Return to Home</a>
-          </body>
-          </html>
-          EOL
-          
+      - name: Install dependencies
+        run: npm install
+        
+      - name: List files
+        run: ls -la
+        
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./_site
+          path: '.'  # Upload the entire repository
           
       - name: Deploy to GitHub Pages
         id: deployment

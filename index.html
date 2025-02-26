@@ -4,87 +4,93 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Neural Echo: Parallel Minds</title>
-    
-    <!-- Add base URL to handle GitHub Pages subdirectory -->
-    <base href="./">
-    
-    <link rel="stylesheet" href="src/css/main.css">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Work+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0a0b11;
+            color: #f5f6fa;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        header {
+            padding: 20px;
+            text-align: center;
+        }
+        
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        h1 {
+            color: #38ada9;
+        }
+        
+        .game-button {
+            background-color: #38ada9;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            text-decoration: none;
+        }
+        
+        .game-button:hover {
+            background-color: #2d8c89;
+        }
+    </style>
 </head>
 <body>
-    <div id="game-container">
-        <header>
-            <div id="logo">Neural Echo</div>
-            <div id="timeline-indicator">Timeline: Alpha</div>
-        </header>
-        
-        <main>
-            <div id="narrative-container">
-                <div id="scene-image"></div>
-                <div id="narrative-text"></div>
-            </div>
-            
-            <div id="choice-container"></div>
-            
-            <div id="ui-container">
-                <div id="timeline-view">
-                    <h3>Timeline View</h3>
-                    <div id="timeline-visualization"></div>
-                </div>
-                
-                <div id="relationship-panel">
-                    <h3>Relationships</h3>
-                    <div id="relationship-graph"></div>
-                </div>
-            </div>
-        </main>
-        
-        <footer>
-            <div id="status-bar">
-                <div id="current-storyline">Clinical</div>
-                <div id="memory-fragments">Memory Fragments: 0</div>
-            </div>
-        </footer>
-    </div>
+    <header>
+        <h1>Neural Echo: Parallel Minds</h1>
+    </header>
     
-    <!-- Core engine -->
-    <!-- Load classes first -->
-    <script src="src/js/database.js"></script>
-    <script src="src/js/narrative-engine.js"></script>
-    <script src="src/js/knowledge-graph.js"></script>
-    <script src="src/js/timeline-manager.js"></script>
-    <script src="src/js/ui-controller.js"></script>
-    <script src="src/js/audio-manager.js"></script>
+    <main>
+        <p>An interactive narrative experience exploring the boundaries between neuroscience, artificial intelligence, and human consciousness.</p>
+        <a href="game.html" class="game-button">Start Experience</a>
+    </main>
     
-    <!-- Add audio control buttons -->
-    <div id="audio-controls">
-        <button id="toggle-mute" title="Toggle Mute">🔊</button>
-        <input type="range" id="volume-slider" min="0" max="100" value="70" title="Volume">
-        <span id="music-status"></span>
-    </div>
-    
-    <!-- Load initialization script last -->
     <script>
-        // Initialize core components explicitly
-        window.dbManager = new DatabaseManager();
-        window.narrativeEngine = new NarrativeEngine();
-        window.knowledgeGraph = new KnowledgeGraphManager();
-        window.timelineManager = new TimelineManager();
-        window.uiController = new UIController();
-        window.audioManager = new AudioManager();
+        // Check if files exist
+        function checkFile(url) {
+            return fetch(url)
+                .then(response => response.ok)
+                .catch(() => false);
+        }
         
-        // Set up audio controls
-        document.getElementById('toggle-mute').addEventListener('click', function() {
-            const isMuted = window.audioManager.toggleMute();
-            this.textContent = isMuted ? '🔇' : '🔊';
-        });
-        
-        document.getElementById('volume-slider').addEventListener('input', function() {
-            window.audioManager.setVolume(this.value / 100);
+        // Check key files
+        Promise.all([
+            checkFile('src/css/main.css'),
+            checkFile('src/js/database.js'),
+            checkFile('src/js/main.js')
+        ]).then(results => {
+            const [cssExists, dbExists, mainJsExists] = results;
+            console.log('CSS exists:', cssExists);
+            console.log('Database.js exists:', dbExists);
+            console.log('Main.js exists:', mainJsExists);
+            
+            if (!cssExists || !dbExists || !mainJsExists) {
+                document.querySelector('main').innerHTML += `
+                    <div style="margin-top: 20px; color: #e84118;">
+                        <p>Warning: Some required files could not be loaded.</p>
+                        <p>CSS: ${cssExists ? '✓' : '✗'}</p>
+                        <p>Database.js: ${dbExists ? '✓' : '✗'}</p>
+                        <p>Main.js: ${mainJsExists ? '✓' : '✗'}</p>
+                    </div>
+                `;
+            }
         });
     </script>
-    
-    <!-- Main application script -->
-    <script src="src/js/main.js"></script>
 </body>
 </html>

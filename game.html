@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neural Echo: Parallel Minds</title>
+    <link rel="stylesheet" href="src/css/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Work+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="game-container">
+        <header>
+            <div id="logo">Neural Echo</div>
+            <div id="timeline-indicator">Timeline: Alpha</div>
+        </header>
+        
+        <main>
+            <div id="narrative-container">
+                <div id="scene-image"></div>
+                <div id="narrative-text"></div>
+            </div>
+            
+            <div id="choice-container"></div>
+            
+            <div id="ui-container">
+                <div id="timeline-view">
+                    <h3>Timeline View</h3>
+                    <div id="timeline-visualization"></div>
+                </div>
+                
+                <div id="relationship-panel">
+                    <h3>Relationships</h3>
+                    <div id="relationship-graph"></div>
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <div id="status-bar">
+                <div id="current-storyline">Clinical</div>
+                <div id="memory-fragments">Memory Fragments: 0</div>
+            </div>
+        </footer>
+    </div>
+    
+    <!-- Core engine -->
+    <!-- Load classes first -->
+    <script src="src/js/database.js"></script>
+    <script src="src/js/narrative-engine.js"></script>
+    <script src="src/js/knowledge-graph.js"></script>
+    <script src="src/js/timeline-manager.js"></script>
+    <script src="src/js/ui-controller.js"></script>
+    <script src="src/js/audio-manager.js"></script>
+    
+    <!-- Add audio control buttons -->
+    <div id="audio-controls">
+        <button id="toggle-mute" title="Toggle Mute">🔊</button>
+        <input type="range" id="volume-slider" min="0" max="100" value="70" title="Volume">
+        <span id="music-status"></span>
+    </div>
+    
+    <!-- Load initialization script last -->
+    <script>
+        // Initialize core components explicitly
+        window.dbManager = new DatabaseManager();
+        window.narrativeEngine = new NarrativeEngine();
+        window.knowledgeGraph = new KnowledgeGraphManager();
+        window.timelineManager = new TimelineManager();
+        window.uiController = new UIController();
+        window.audioManager = new AudioManager();
+        
+        // Set up audio controls
+        document.getElementById('toggle-mute').addEventListener('click', function() {
+            const isMuted = window.audioManager.toggleMute();
+            this.textContent = isMuted ? '🔇' : '🔊';
+        });
+        
+        document.getElementById('volume-slider').addEventListener('input', function() {
+            window.audioManager.setVolume(this.value / 100);
+        });
+    </script>
+    
+    <!-- Main application script -->
+    <script src="src/js/main.js"></script>
+</body>
+</html> 

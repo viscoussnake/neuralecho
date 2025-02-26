@@ -1,0 +1,23 @@
+{
+  "name": "neural-echo",
+  "homepage": "http://viscoussnake.github.io/neuralecho",
+  "version": "1.0.0",
+  "description": "An interactive narrative experience exploring the boundaries between neuroscience, artificial intelligence, and human consciousness",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "interactive-fiction",
+    "narrative",
+    "neuroscience",
+    "artificial-intelligence",
+    "consciousness"
+  ],
+  "author": "Claude, with conceptual guidance from Galal Elsayed, MD",
+  "license": "MIT",
+  "dependencies": {},
+  "engines": {
+    "node": ">=12.0.0"
+  }
+}
